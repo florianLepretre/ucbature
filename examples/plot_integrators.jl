@@ -1,8 +1,9 @@
+# run with: julia -p auto compare_integrators.jl
+
 @everywhere begin
 
-    include("Integrand.jl")
-    include("Integrator.jl")
-
+    include("Integrands.jl")
+    using Ucbature
     using PyPlot
 
     function randomize_integrand(dim, integrand, xmin, xmax, difficulty)
@@ -18,7 +19,7 @@
             # randomize integrand
             rand_integrand = randomize_integrand(dim, integrand, xmin, xmax, difficulty)
             # estimate ground truth
-            ground_truth = Integrator.mc(rand_integrand, xmin, xmax, nb_evals_gt)
+            ground_truth = Ucbature.mc(rand_integrand, xmin, xmax, nb_evals_gt)
             # compute mae sum
             mae_sum += abs(ground_truth - integrator(rand_integrand, xmin, xmax, nb_evals))
         end
@@ -36,9 +37,9 @@
         dim = length(xmin)
         println("computing $(integrand_name) $(dim)D...")
         # run integrators and plot results
-        run_plot(dim, integrand, xmin, xmax, difficulty, list_nb_evals, Integrator.mc, nb_runs, nb_evals_gt, "mc")
-        run_plot(dim, integrand, xmin, xmax, difficulty, list_nb_evals, Integrator.str, nb_runs, nb_evals_gt, "str")
-        run_plot(dim, integrand, xmin, xmax, difficulty, list_nb_evals, Integrator.ucb, nb_runs, nb_evals_gt, "ucb")
+        run_plot(dim, integrand, xmin, xmax, difficulty, list_nb_evals, Ucbature.mc, nb_runs, nb_evals_gt, "mc")
+        run_plot(dim, integrand, xmin, xmax, difficulty, list_nb_evals, Ucbature.str, nb_runs, nb_evals_gt, "str")
+        run_plot(dim, integrand, xmin, xmax, difficulty, list_nb_evals, Ucbature.ucb, nb_runs, nb_evals_gt, "ucb")
         # finish plot
         xscale("log")
         yscale("log")
@@ -69,15 +70,16 @@
 end # @everywhere
 
 # parallel runs
-aux_data = [# (Integrand.sinus, fill(-8.0, 2), fill(8.0, 2), 1.0, "sinus"),
-            # (Integrand.sinusc, fill(-8.0, 2), fill(8.0, 2), 1.0, "sinusc"),
-            # (Integrand.sphere, fill(-2.0, 2), fill(2.0, 2), 1.0, "sphere"),
-            # (Integrand.oscillatory, fill(-5.0, 2), fill(5.0, 2), 6.0, "oscillatory"),
-            # (Integrand.productpeak, fill(-4.0, 2), fill(4.0, 2), 18.0, "productpeak"),
-            # (Integrand.cornerpeak, fill(0.0, 2), fill(1.0, 2), 2.2, "cornerpeak"),
-            (Integrand.gaussian, fill(-4.0, 2), fill(4.0, 2), 15.2, "gaussian"),
-            # (Integrand.continuous, fill(-4.0, 2), fill(4.0, 2), 16.1, "continuous"),
-            # (Integrand.discontinuous, fill(-4.0, 2), fill(4.0, 2), 16.4, "discontinuous"),
+aux_data = [# (Integrands.sinus, fill(-8.0, 2), fill(8.0, 2), 1.0, "sinus"),
+            # (Integrands.sinusc, fill(-8.0, 2), fill(8.0, 2), 1.0, "sinusc"),
+            (Integrands.sphere, fill(-2.0, 2), fill(2.0, 2), 1.0, "sphere"),
+            # (Integrands.oscillatory, fill(-5.0, 2), fill(5.0, 2), 6.0, "oscillatory"),
+            # (Integrands.productpeak, fill(-4.0, 2), fill(4.0, 2), 18.0, "productpeak"),
+            # (Integrands.cornerpeak, fill(0.0, 2), fill(1.0, 2), 2.2, "cornerpeak"),
+            (Integrands.gaussian, fill(-4.0, 2), fill(4.0, 2), 15.2, "gaussian"),
+            # (Integrands.continuous, fill(-4.0, 2), fill(4.0, 2), 16.1, "continuous"),
+            # (Integrands.discontinuous, fill(-4.0, 2), fill(4.0, 2), 16.4, "discontinuous"),
            ]
 
 map(aux_run, aux_data)
+

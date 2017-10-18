@@ -1,44 +1,37 @@
-# ucbature in julia
+[![Build Status](https://travis-ci.org/florianLepretre/ucbature.svg?branch=master)](https://travis-ci.org/florianLepretre/ucbature)
 
-## the julia language
+# Ucbature
 
-- [julia homepage](https://julialang.org/)
-- [julia documentation](https://docs.julialang.org/en/stable/)
-- [julia editor support](https://github.com/JuliaEditorSupport)
+This package is a [Julia](http://julialang.org/) implementation of the
+[Ucbature algorithm](TODO HAL). A C++/Python implementation of Ucbature is also
+available, contact us for more details.
 
-
-## setup
-
-- the standard way:
+## Quick-start
 
 ```
-mkdir -p ~/opt/julia
-git clone https://github.com/JuliaLang/julia ~/opt/julia
-git -C ~/opt/julia checkout v0.6.0
-make -C ~/opt/julia -j12
-# wait a few hours until the compilation is complete...
-echo 'alias julia="$HOME/opt/julia/julia"' >> ~/.bashrc
-source ~/.bashrc
-julia init.jl
+Pkg.clone("https://github.com/florianLepretre/ucbature.git")
+
+using Ucbature
+
+sphere(x) = vecdot(x, x) < 1.0 ? 1.0 : 0.0
+const dim = 2
+const xmin = fill(-1.0, dim)
+const xmax = fill( 1.0, dim)
+mc(sphere, xmin, xmax, 1e6)
 ```
 
-- the nix way:
+## Algorithms
 
-```
-nix-shell
-julia init.jl
-```
+- mc: TODO
+- str: TODO
+- ucb: TODO
+
+## Examples
+
+- `simple_benchmark.jl`: TODO
+- `plot_integrators.jl`: TODO
+- `plot_integrands.jl`: TODO
 
 
-## run
+TODO write doc in Ucbature.jl
 
-```
-julia -p auto compare_integrators.jl
-julia ucbature_benchmark.jl
-julia plot_integrands.jl
-...
-```
-
-## more...
-
-- a C++/python version of ucbature is also available, contact us for more details

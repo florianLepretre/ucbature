@@ -1,4 +1,4 @@
-include("Integrand.jl")
+include("Integrands.jl")
 
 using PyPlot
 
@@ -40,15 +40,15 @@ if ~isdir(outdir)
     mkdir(outdir)
 end
 
-plot_1d_2d(Integrand.constant, -2, 2, 100, "constant")
-plot_1d_2d(Integrand.linear, -2, 2, 100, "linear")
-plot_1d_2d(Integrand.sinus, -8, 8, 100, "sinus")
-plot_1d_2d(Integrand.sinusc, -8, 8, 100, "sinusc")
-plot_1d_2d(Integrand.sphere, -2, 2, 100, "sphere")
-plot_1d_2d(Integrand.oscillatory, -5, 5, 100, "oscillatory")
-plot_1d_2d(Integrand.productpeak, -1, 1, 100, "productpeak")
-plot_1d_2d(Integrand.cornerpeak, 0, 1, 100, "cornerpeak")
-plot_1d_2d(Integrand.gaussian, -4, 4, 100, "gaussian")
-plot_1d_2d(Integrand.continuous, -4, 4, 100, "continuous")
-plot_1d_2d(Integrand.discontinuous, -4, 4, 100, "discontinuous")
+plot_1d_2d(Integrands.constant, -2, 2, 100, "constant")
+plot_1d_2d(Integrands.linear, -2, 2, 100, "linear")
+plot_1d_2d(Integrands.sinus, -8, 8, 100, "sinus")
+plot_1d_2d(Integrands.sinusc, -8, 8, 100, "sinusc")
+plot_1d_2d(Integrands.sphere, -2, 2, 100, "sphere")
+plot_1d_2d(Integrands.oscillatory, -5, 5, 100, "oscillatory")
+plot_1d_2d(Integrands.productpeak, -1, 1, 100, "productpeak")
+plot_1d_2d(Integrands.cornerpeak, 0, 1, 100, "cornerpeak")
+plot_1d_2d(Integrands.gaussian, -4, 4, 100, "gaussian")
+plot_1d_2d(Integrands.continuous, -4, 4, 100, "continuous")
+plot_1d_2d(Integrands.discontinuous, -4, 4, 100, "discontinuous")
 

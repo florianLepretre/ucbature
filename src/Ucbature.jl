@@ -1,4 +1,12 @@
-module Integrator
+__precompile__()
+
+"""
+Multi-dimensional integration routines.
+"""
+
+module Ucbature
+
+export mc, str, ucb
 
 rand_min_max(xmin, xmax) = xmin .+ rand(length(xmin)).*(xmax.-xmin)
 
@@ -99,4 +107,5 @@ function ucb(integrand, xmin, xmax, nb_evals, nb_zones_per_dim=3,
     prod(xstep) * sum(zones_sum1 ./ zones_evals)
 end
 
-end
+end # module Ucbature
+

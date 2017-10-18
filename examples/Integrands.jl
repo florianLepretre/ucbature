@@ -1,4 +1,4 @@
-module Integrand
+module Integrands
 
 constant(x, c=1, varargs...) = c
 
