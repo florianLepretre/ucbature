@@ -11,13 +11,13 @@ available, contact us for more details.
 ```
 Pkg.clone("https://github.com/florianLepretre/ucbature.git")
 
-using Ucbature
+using ucbature
 
 sphere(x) = vecdot(x, x) < 1.0 ? 1.0 : 0.0
 const dim = 2
 const xmin = fill(-1.0, dim)
 const xmax = fill( 1.0, dim)
-mc(sphere, xmin, xmax, 1e6)
+ucbature.mc(sphere, xmin, xmax, 1e6)
 ```
 
 ## Algorithms
