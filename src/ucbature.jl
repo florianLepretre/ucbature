@@ -4,7 +4,7 @@ __precompile__()
 Multi-dimensional integration routines.
 """
 
-module Ucbature
+module ucbature
 
 export mc, str, ucb
 

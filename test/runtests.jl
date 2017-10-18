@@ -1,6 +1,6 @@
 using Base.Test
 
-using Ucbature
+using ucbature
 
 const my_tol = 1e-2
 
@@ -14,13 +14,13 @@ const nb_init_evals_per_zone = 10
 
 sphere(x) = vecdot(x, x) < 1.0 ? 1.0 : 0.0
 
-res_mc = Ucbature.mc(sphere, xmin, xmax, nb_evals)
+res_mc = ucbature.mc(sphere, xmin, xmax, nb_evals)
 @test isapprox(res_mc, pi, atol=my_tol)
 
-res_str = Ucbature.str(sphere, xmin, xmax, nb_evals, nb_zones_per_dim)
+res_str = ucbature.str(sphere, xmin, xmax, nb_evals, nb_zones_per_dim)
 @test isapprox(res_str, pi, atol=my_tol)
 
-res_ucb = Ucbature.ucb(sphere, xmin, xmax, nb_evals, nb_zones_per_dim, 
+res_ucb = ucbature.ucb(sphere, xmin, xmax, nb_evals, nb_zones_per_dim, 
                        k_exploration, nb_init_evals_per_zone)
 @test isapprox(res_ucb, pi, atol=my_tol)
 
