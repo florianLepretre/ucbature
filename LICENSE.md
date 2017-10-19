@@ -1,6 +1,6 @@
-The FooBar2.jl package is licensed under the MIT "Expat" License:
+The ucbature package is licensed under the MIT "Expat" License:
 
-> Copyright (c) 2017: Julien Dehos.
+> Copyright (c) 2017: Florian Leprêtre, Julien Dehos, Fabien Teytaud.
 >
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 > of this software and associated documentation files (the "Software"), to deal
