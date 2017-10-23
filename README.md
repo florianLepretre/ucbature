@@ -13,11 +13,12 @@ Pkg.clone("https://github.com/florianLepretre/ucbature.git")
 
 using ucbature
 
-sphere(x) = vecdot(x, x) < 1.0 ? 1.0 : 0.0
+sphere_func(x) = vecdot(x, x) < 1.0 ? 1.0 : 0.0
 const dim = 2
 const xmin = fill(-1.0, dim)
 const xmax = fill( 1.0, dim)
-ucbature.mc(sphere, xmin, xmax, 1e6)
+const nb_evals = 1e6
+ucbature.mc(sphere_func, xmin, xmax, nb_evals)
 ```
 
 ## Algorithms
