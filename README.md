@@ -3,8 +3,9 @@
 [![Build Status](https://travis-ci.org/florianLepretre/ucbature.svg?branch=master)](https://travis-ci.org/florianLepretre/ucbature)
 
 This package is a [Julia](http://julialang.org/) implementation of the
-[Ucbature algorithm](TODO HAL). A C++/Python implementation of Ucbature is also
-available, contact us for more details.
+[Ucbature algorithm]. 
+A C++/Python implementation of Ucbature is also available, contact us for more
+details.
 
 ## Quick-start
 
@@ -14,25 +15,29 @@ Pkg.clone("https://github.com/florianLepretre/ucbature.git")
 using ucbature
 
 sphere_func(x) = vecdot(x, x) < 1.0 ? 1.0 : 0.0
-const dim = 2
-const xmin = fill(-1.0, dim)
-const xmax = fill( 1.0, dim)
-const nb_evals = 1e6
+dim = 2
+xmin = fill(-1.0, dim)
+xmax = fill( 1.0, dim)
+nb_evals = 1e6
 ucbature.mc(sphere_func, xmin, xmax, nb_evals)
 ```
 
 ## Algorithms
 
-- mc: TODO
-- str: TODO
-- ucb: TODO
+- `mc`: Monte-Carlo
+- `str`: stratified Monte-Carlo
+- `ucb`: Upper Confidence Bound (multi-armed bandit)
 
 ## Examples
 
-- `simple_benchmark.jl`: TODO
-- `plot_integrators.jl`: TODO
-- `plot_integrands.jl`: TODO
+- `simple_benchmark.jl`: run the algorithms on some integrand functions
 
+- `plot_integrators.jl`: run and plot the algorithms
 
-TODO write doc in Ucbature.jl
+![](examples/plot_integrators.png)
+
+- `plot_integrands.jl`: plot the example integrand functions
+
+![](examples/plot_integrands.png)
+
 

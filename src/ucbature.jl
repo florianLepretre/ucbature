@@ -1,7 +1,12 @@
 __precompile__()
 
 """
-Multi-dimensional integration routines.
+Multi-dimensional integration routines: Monte-Carlo, stratified Monte-Carlo,
+multi-armed bandit UCB.
+
+See the 
+[README file](https://github.com/florianLepretre/ucbature/blob/master/README.md)
+for documentation.   
 """
 
 module ucbature
@@ -12,6 +17,16 @@ rand_min_max(xmin, xmax) = xmin .+ rand(length(xmin)).*(xmax.-xmin)
 
 volume(xmin, xmax) = prod(xmax .- xmin)
 
+"""
+    mc(f, xmin, xmax, nb_evals)
+
+Compute the n-dimensional integral f(x), where 
+`n == length(xmin) == length(xmax)`, over the hypercube whose corners are given
+by the vectors (or tuples) `xmin` and `xmax`. `f` should be a function `f(x)` 
+that takes an n-dimensional vector `x` and returns the integrand at `x`. 
+
+Use the classic Monte-Carlo integration method using `nb_evals` samples.
+"""
 function mc(integrand, xmin, xmax, nb_evals)
     f_val(i) = integrand(rand_min_max(xmin, xmax))
     mean_val = mapreduce(f_val, +, 1:nb_evals) / nb_evals
@@ -39,6 +54,17 @@ function make_zones(xmin, xmax, nb_zones_per_dim)
     dim, nb_zones, xstep, zones
 end
 
+"""
+    str(f, xmin, xmax, nb_evals, nb_zones_per_dim=3)
+
+Compute the n-dimensional integral f(x), where 
+`n == length(xmin) == length(xmax)`, over the hypercube whose corners are given
+by the vectors (or tuples) `xmin` and `xmax`. `f` should be a function `f(x)` 
+that takes an n-dimensional vector `x` and returns the integrand at `x`. 
+
+Use the stratified monte-carlo integration method using `nb_evals` samples and
+`nb_zones_per_dim` uniform strata in each dimension.
+"""
 function str(integrand, xmin, xmax, nb_evals, nb_zones_per_dim=3)
     dim, nb_zones, xstep, zones = make_zones(xmin, xmax, nb_zones_per_dim)
     if nb_evals < nb_zones
@@ -86,6 +112,18 @@ function ucb_mab(integrand, nb_init_evals, nb_evals, k_exploration, zones,
     zones_sum1, zones_evals
 end
 
+"""
+    ucb(integrand, xmin, xmax, nb_evals, nb_zones_per_dim=3, k_exploration=0.01, nb_init_evals_per_zone=10)
+
+Compute the n-dimensional integral f(x), where 
+`n == length(xmin) == length(xmax)`, over the hypercube whose corners are given
+by the vectors (or tuples) `xmin` and `xmax`. `f` should be a function `f(x)` 
+that takes an n-dimensional vector `x` and returns the integrand at `x`. 
+
+Use the multi-armed bandit UCB method using `nb_evals` samples,
+`nb_zones_per_dim` uniform strata in each dimension, `nb_init_evals_per_zone` 
+initial samples in each stratum and an exploration coefficient `k_exploration`.
+"""
 function ucb(integrand, xmin, xmax, nb_evals, nb_zones_per_dim=3, 
              k_exploration=0.01, nb_init_evals_per_zone=10)
     # init
@@ -107,5 +145,5 @@ function ucb(integrand, xmin, xmax, nb_evals, nb_zones_per_dim=3,
     prod(xstep) * sum(zones_sum1 ./ zones_evals)
 end
 
-end # module Ucbature
+end # module ucbature
 
