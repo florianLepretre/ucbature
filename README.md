@@ -2,10 +2,13 @@
 
 [![Build Status](https://travis-ci.org/florianLepretre/ucbature.svg?branch=master)](https://travis-ci.org/florianLepretre/ucbature)
 
-This package is a [Julia](http://julialang.org/) implementation of the
-[Ucbature algorithm]. 
-A C++/Python implementation of Ucbature is also available, contact us for more
-details.
+This package is a [Julia](http://julialang.org/) implementation of the ucbature
+algorithm (a C++/Python implementation of Ucbature is also available, contact
+us for more details):
+
+- Florian Leprêtre, Fabien Teytaud, Julien Dehos. 
+[Multi-armed bandit for stratified sampling: Application to numerical integration](https://hal.archives-ouvertes.fr/hal-01660617).
+TAAI 2017 - Conference on Technologies and Applications of Artificial Intelligence, Dec 2017, Taipei, Taiwan. 
 
 ## Quick-start
 
@@ -39,5 +42,4 @@ ucbature.mc(sphere_func, xmin, xmax, nb_evals)
 - `plot_integrands.jl`: plot the example integrand functions
 
 ![](examples/plot_integrands.png)
-
 
